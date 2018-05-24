@@ -21,7 +21,7 @@ namespace ImageGeneratorGUI
             
         }
 
-        public static void generateImage(int width, int height, PictureBox pictureBox)
+        public static void generateImage(int width, int height, PictureBox pictureBox, CheckBox checkBox)
         {
             Bitmap img = new Bitmap(width, height);
             Random rnd = new Random();
@@ -52,12 +52,26 @@ namespace ImageGeneratorGUI
             {
                 for (int x = 0; x < halfimg.GetLength(0); x++)
                 {
-                    if (halfimg[x, y] == 1)
+                    if (checkBox.Checked)
                     {
-                        img.SetPixel(x, y, Color.White);
+                        if (halfimg[x, y] == 1)
+                        {
+                            img.SetPixel(x, y, Color.White);
+                        }
+                        else
+                        {
+                            img.SetPixel(x, y, clr);
+                        }
                     } else
                     {
-                        img.SetPixel(x, y, clr);
+                        if (halfimg[x, y] == 1)
+                        {
+                            img.SetPixel(x, y, Color.White);
+                        }
+                        else
+                        {
+                            img.SetPixel(x, y, Color.Black);
+                        }
                     }
                 }
             }
@@ -85,7 +99,7 @@ namespace ImageGeneratorGUI
             {
                 Console.WriteLine("incorrect width and height");
             }
-            generateImage(width, height, pictureBox1);
+            generateImage(width, height, pictureBox1, checkBox1);
         }
 
         private void button2_Click(object sender, EventArgs e)
