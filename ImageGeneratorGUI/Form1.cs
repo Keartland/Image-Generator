@@ -25,13 +25,13 @@ namespace ImageGeneratorGUI
         {
             Bitmap img = new Bitmap(width, height);
             Random rnd = new Random();
+            Color clr = Color.FromArgb(rnd.Next(0,255), rnd.Next(0, 255), rnd.Next(0, 255));
             int[,] halfimg = new int[img.Width, img.Height];
             for (int y = 0; y < img.Height / 2; y++)
             {
                 for (int x = 0; x < img.Width / 2; x++)
                 {
-                    int num = rnd.Next(0, 2);
-                    halfimg[x, y] = num * 255;
+                    halfimg[x, y] = rnd.Next(0, 2);
                 }
             }
             for (int y = 0; y < img.Height / 2; y++)
@@ -52,7 +52,13 @@ namespace ImageGeneratorGUI
             {
                 for (int x = 0; x < halfimg.GetLength(0); x++)
                 {
-                    img.SetPixel(x, y, Color.FromArgb(halfimg[x, y], halfimg[x, y], halfimg[x, y]));
+                    if (halfimg[x, y] == 1)
+                    {
+                        img.SetPixel(x, y, Color.White);
+                    } else
+                    {
+                        img.SetPixel(x, y, clr);
+                    }
                 }
             }
             Bitmap fullSize = new Bitmap(800, 800);
