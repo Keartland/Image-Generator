@@ -114,5 +114,46 @@ namespace ImageGeneratorGUI
                 Console.WriteLine("Unable to save");
             }
         }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            Bitmap pic = new Bitmap(pictureBox1.Image);
+            for (int y = 0; (y <= (pic.Height - 1)); y++)
+            {
+                for (int x = 0; (x <= (pic.Width - 1)); x++)
+                {
+                    Color inv = pic.GetPixel(x, y);
+                    inv = Color.FromArgb((255 - inv.R), (255 - inv.G), (255 - inv.B));
+                    pic.SetPixel(x, y, inv);
+                }
+            }
+            pictureBox1.Image = pic;
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            Random rnd = new Random();
+            Color clr = Color.FromArgb(rnd.Next(0, 255), rnd.Next(0, 255), rnd.Next(0, 255));
+            Bitmap pic = new Bitmap(pictureBox1.Image);
+            for (int y = 0; (y <= (pic.Height - 1)); y++)
+            {
+                for (int x = 0; (x <= (pic.Width - 1)); x++)
+                {
+                    Boolean black = false;
+                    Color inv = pic.GetPixel(x, y);
+                    if (inv.R == 0 && inv.G == 0 && inv.B == 0)
+                    {
+                        black = true;
+                        inv = clr;
+                    }
+                    if (inv.R != 255 && inv.G != 255 && inv.B != 255 && !black)
+                    {
+                        inv = Color.FromArgb(0, 0, 0);
+                    }
+                    pic.SetPixel(x, y, inv);
+                }
+            }
+            pictureBox1.Image = pic;
+        }
     }
 }
